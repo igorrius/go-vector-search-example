@@ -3,3 +3,5 @@ test/typesense-data/
 
 # Ignore compiled binary files
 bin/
+
+.idea/

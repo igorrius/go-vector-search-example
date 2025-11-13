@@ -26,7 +26,10 @@ lint: ## Lint the codebase
 
 test-unit: ## Run unit tests
 	@echo "Running unit tests..."
-	@go test -v ./...
+	@docker-compose -f test/docker-compose.yml down -v --remove-orphans
+	@docker-compose -f test/docker-compose.yml up -d
+	@go test -v ./... || (docker-compose -f test/docker-compose.yml logs && exit 1)
+	@docker-compose -f test/docker-compose.yml down
 
 test-integration: ## Run integration tests
 	@echo "Running integration tests..."
