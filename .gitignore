@@ -1,0 +1,3 @@
+# Ignore the typesense data directory
+test/typesense-data/
+
