@@ -66,7 +66,7 @@ func (r *TypesenseRepository) ensureCollectionExists(ctx context.Context) error 
 		Fields: []api.Field{
 			{Name: "id", Type: "string"},
 			{Name: "content", Type: "string"},
-			{Name: "embedding", Type: "float[]", Index: boolPtr(true), Optional: boolPtr(true)},
+			{Name: "embedding", Type: "float[]", Index: boolPtr(true), Optional: boolPtr(true), NumDim: intPtr(8)},
 		},
 	}
 
@@ -169,4 +169,8 @@ var _ app.VectorStore = (*TypesenseRepository)(nil)
 
 func boolPtr(b bool) *bool {
 	return &b
+}
+
+func intPtr(i int) *int {
+	return &i
 }
