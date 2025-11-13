@@ -1,0 +1,28 @@
+###
+# curl -X 'POST'
+#  'http://localhost:63342/api/v1/documents'
+#  -H 'accept: */*'
+#  -H 'Content-Type: application/json'
+#  -d '{
+#  "id": "manual-input-1",
+#  "content": "text 1, manual input"
+#}'
+POST http://localhost:8080/api/v1/documents
+accept: */*
+Content-Type: application/json
+
+{
+  "id": "manual-input-1",
+  "content": "text 1, manual input"
+}
+
+###
+
+
+# curl -X 'GET'
+#  'http://localhost:63342/api/v1/search?q=text'
+#  -H 'accept: application/json'
+GET http://localhost:8080/api/v1/search?q=text
+accept: application/json
+
+###

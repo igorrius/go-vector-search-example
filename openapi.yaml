@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: Go Vector Search API
+  description: API for uploading and searching documents.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Development server
+paths:
+  /upload:
+    post:
+      summary: Upload a document
+      description: Uploads a file to the system.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Document uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /search:
+    get:
+      summary: Search for documents
+      description: Searches for documents based on a query.
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: The search query.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of matching documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The document ID.
+          example: "doc-123"
+        title:
+          type: string
+          description: The document title.
+          example: "My Awesome Document"
+        content:
+          type: string
+          description: A snippet of the document content.
+          example: "This is the content of the document..."
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Upload successful"
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid query parameter"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+security:
+  - ApiKeyAuth: []

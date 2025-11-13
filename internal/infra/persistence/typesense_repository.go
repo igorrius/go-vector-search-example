@@ -61,12 +61,15 @@ func (r *TypesenseRepository) ensureCollectionExists(ctx context.Context) error 
 		r.client.Collection(collectionName).Delete(ctx)
 	}
 
+	// NumDim should match the dimension of your embeddings, here assumed to be 8.
+	// For gemini-embedding-001 model it can be: Flexible, supports: 128 - 3072, Recommended: 768, 1536, 3072
+	numDim := 8
 	schema := &api.CollectionSchema{
 		Name: collectionName,
 		Fields: []api.Field{
 			{Name: "id", Type: "string"},
 			{Name: "content", Type: "string"},
-			{Name: "embedding", Type: "float[]", Index: boolPtr(true), Optional: boolPtr(true)},
+			{Name: "embedding", Type: "float[]", Index: boolPtr(true), Optional: boolPtr(true), NumDim: intPtr(numDim)},
 		},
 	}
 
@@ -169,4 +172,8 @@ var _ app.VectorStore = (*TypesenseRepository)(nil)
 
 func boolPtr(b bool) *bool {
 	return &b
+}
+
+func intPtr(i int) *int {
+	return &i
 }

@@ -1,3 +1,7 @@
 # Ignore the typesense data directory
 test/typesense-data/
 
+# Ignore compiled binary files
+bin/
+
+.idea/

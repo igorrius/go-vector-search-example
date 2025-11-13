@@ -1,6 +1,4 @@
 # Ignore the test/typesense-data/ directory and its contents.
-test/typesense-data/
-
 # Ignore all files and folders inside test directory, but not the directory itself.
 test/*
 !test/
@@ -13,3 +11,11 @@ test/*
 
 # Ignore the Dockerfile.
 Dockerfile
+
+# Ignore the LICENSE file.
+LICENSE
+# Ignore all .md files.
+*.md
+
+# Ignore .kilocode directory
+.kilocode/
